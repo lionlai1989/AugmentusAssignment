@@ -22,7 +22,7 @@ The primary algorithm used for segmentation is **DBSCAN**, applied on a feature 
 K-Means was tested but proved unsuitable due to its sensitivity to non-spherical clusters.
 
 ### Tunable Parameters
-- **Epsilon (ε):**  
+- **Epsilon:**  
   Defines the maximum distance between two points for them to be considered neighbors. Smaller values yield finer segmentation; larger values merge nearby clusters.
 
 - **Minimum number of points:**  
@@ -33,8 +33,6 @@ K-Means was tested but proved unsuitable due to its sensitivity to non-spherical
   For example, `(0.6, 0.3, 0.1)` means position contributes 60%, color 30%, and normal 10% to the clustering distance metric.
 
 ## Experiment Results
-*(To be filled with quantitative and qualitative comparisons of the two approaches, including visual outputs and runtime.)*
-
 
 
 
