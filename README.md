@@ -75,10 +75,9 @@ python3 -m pip install -e .[dev,test,interactive]
 
 Run the provided unit tests with:
 ```bash
-pytest -q
+pytest
 ```
 
 Three unit tests are included to verify core functionality:
-1. Voxel downsampling reduces point count.  
-2. Normal estimation produces unit vectors.  
-3. DBSCAN segmentation detects multiple clusters.
+1. Point cloud downsampling reduces point count.
+2. DBSCAN segmentation detects multiple clusters.
