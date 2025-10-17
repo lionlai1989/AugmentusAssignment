@@ -34,6 +34,112 @@ K-Means was tested but proved unsuitable due to its sensitivity to non-spherical
 
 ## Experiment Results
 
+The original Eagle point cloud used for this experiment:
+
+<p align="center">
+  <img src="./output/original_eagle.png" width="50%">
+  <br>
+  <em>The original point cloud</em>
+</p>
+
+**Overview**
+
+A variety of parameter combinations were tested for both density-based and distance-based
+approaches. Only a selection of representative and visually meaningful results are shown
+below. All generated results can be found in the `output/` directory.
+
+### Density-based Approach
+
+In this approach, uniform downsampling preserves the original density distribution of the
+point cloud, allowing DBSCAN to exploit local density variations.
+
+<p align="center">
+  <img src="./output/uniform_down_sample_3_normals.png" width="50%">
+  <br>
+  <em>The uniform downsampled point cloud with normals</em>
+</p>
+
+Four representative clustering results with visually good segmentations are shown below.
+
+<table>
+<tr>
+  <td align="center" width="50%">
+    <img src="./output/uniform_down_sample_3_eps0.1_min30_Wxyz0.5lab0norm0.5_clusters146.png" width="95%"><br>
+    <em>Top-Left</em>
+  </td>
+  <td align="center" width="50%">
+    <img src="./output/uniform_down_sample_3_eps0.1_min30_Wxyz0.333lab0.333norm0.333_clusters229.png" width="95%"><br>
+    <em>Top-Right</em>
+  </td>
+</tr>
+<tr>
+  <td align="center" width="50%">
+    <img src="./output/uniform_down_sample_3_eps0.13_min50_Wxyz0.333lab0.333norm0.333_clusters65.png" width="95%"><br>
+    <em>Bottom-Left</em>
+  </td>
+  <td align="center" width="50%">
+    <img src="./output/uniform_down_sample_3_eps0.13_min50_Wxyz0.5lab0norm0.5_clusters43.png" width="95%"><br>
+    <em>Bottom-Right</em>
+  </td>
+</tr>
+</table>
+
+<p align="center">
+  <em>Uniform downsampled point cloud segmentation results using DBSCAN.</em>
+</p>
+
+| Image | every_k_points | epsilon | min_points | Weights (XYZ, Lab, Normal) | #Clusters |
+|:------|:--------------|:-------------|:------------|:----------------------------|:-----------:|
+| **Top-Left** | 3 | 0.10 | 30 | (0.5, 0.0, 0.5) | 146 |
+| **Top-Right** | 3 | 0.10 | 30 | (0.333, 0.333, 0.333) | 229 |
+| **Bottom-Left** | 3 | 0.13 | 50 | (0.333, 0.333, 0.333) | 65 |
+| **Bottom-Right** | 3 | 0.13 | 50 | (0.5, 0.0, 0.5) | 43 |
+
+### Distance-based Approach
+
+Here, voxel downsampling produces a uniformly distributed point cloud, which is more suitable for Euclidean clustering or distance-based segmentation methods.
+
+<p align="center">
+  <img src="./output/voxel_down_sample_0.023_normals.png" width="50%">
+  <br>
+  <em>The voxel downsampled point cloud with normals</em>
+</p>
+
+Four representative clustering results with visually good segmentations are shown below.
+
+<table>
+<tr>
+  <td align="center" width="50%">
+    <img src="./output/voxel_down_sample_0.023_eps0.07_min10_Wxyz0.333lab0.333norm0.333_clusters1171.png" width="95%"><br>
+    <em>Top-Left</em>
+  </td>
+  <td align="center" width="50%">
+    <img src="./output/voxel_down_sample_0.023_eps0.07_min10_Wxyz0.5lab0norm0.5_clusters749.png" width="95%"><br>
+    <em>Top-Right</em>
+  </td>
+</tr>
+<tr>
+  <td align="center" width="50%">
+    <img src="./output/voxel_down_sample_0.023_eps0.1_min30_Wxyz0.5lab0norm0.5_clusters136.png" width="95%"><br>
+    <em>Bottom-Left</em>
+  </td>
+  <td align="center" width="50%">
+    <img src="./output/voxel_down_sample_0.023_eps0.1_min30_Wxyz0.333lab0.333norm0.333_clusters237.png" width="95%"><br>
+    <em>Bottom-Right</em>
+  </td>
+</tr>
+</table>
+
+<p align="center">
+  <em>Voxel downsampled point cloud segmentation results using DBSCAN.</em>
+</p>
+
+| Image | voxel_size | epsilon | min_points | Weights (XYZ, Lab, Normal) | #Clusters |
+|:------|:--------------|:-------------|:------------|:----------------------------|:-----------:|
+| **Top-Left** | 0.023 | 0.07 | 10 | (0.333, 0.333, 0.333) | 1171 |
+| **Top-Right** | 0.023 | 0.07 | 10 | (0.5, 0.0, 0.5) | 749 |
+| **Bottom-Left** | 0.023 | 0.10 | 30 | (0.5, 0.0, 0.5) | 136 |
+| **Bottom-Right** | 0.023 | 0.10 | 30 | (0.333, 0.333, 0.333) | 237 |
 
 
 ## Architecture
