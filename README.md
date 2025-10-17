@@ -155,6 +155,16 @@ The main package `pointcloudprocessor` contains the following modules:
 | **render** | Handles offscreen rendering and visualization of point clouds as static images. |
 | **process_eagle** | The main entry point that loads the Eagle dataset, runs the full pipeline, and generates results. |
 
+**UML Diagram**
+
+The overall system architecture is illustrated in the UML diagram below.
+
+<p align="center">
+  <img src="./uml.svg" width="100%">
+  <br>
+  <em>UML diagram of the package `pointcloud_processor`</em>
+</p>
+
 
 ## How to Run
 
@@ -184,6 +194,6 @@ Run the provided unit tests with:
 pytest
 ```
 
-Three unit tests are included to verify core functionality:
+Two unit tests are included to verify core functionality:
 1. Point cloud downsampling reduces point count.
 2. DBSCAN segmentation detects multiple clusters.
