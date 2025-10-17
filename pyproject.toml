@@ -1,0 +1,59 @@
+[build-system]
+requires = ["pip>=22", "setuptools>=62", "ninja", "cmake>=3.22", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = true
+
+[project]
+name = "pointcloud_processor"
+version = "0.0.1"
+authors = [{ name = "Chih-An Lion Lai", email = "lionlai1989@gmail.com" }]
+description = "Lion Lai solution for Augmentus assignment"
+readme = "README.md"
+requires-python = ">=3.8"
+
+dependencies = [
+    "open3d",
+    "scipy",
+    "scikit-learn",
+    "scikit-image",
+]
+
+[project.optional-dependencies]
+dev = ["mypy", "ruff"]
+test = ["pytest", "pytest-cov", "psutil"]
+interactive = ["jupyter", "ipykernel", "notebook", "jupyterlab"]
+
+[project.urls]
+"Homepage" = "https://github.com/lionlai1989/AugmentusAssignment"
+
+[project.scripts]
+process-eagle = "augmentus.pointcloudprocessor.process_eagle:main"
+
+## mypy configuration
+[tool.mypy]
+strict = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+
+## ruff configuration
+[tool.ruff]
+fix = true
+line-length = 100
+target-version = "py38"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 100
