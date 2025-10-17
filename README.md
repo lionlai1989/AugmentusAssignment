@@ -58,7 +58,7 @@ python3.10 -m venv venv_augmentus
 source venv_augmentus/bin/activate
 python3 -m pip install .
 ```
-This command install a Python package "pointcloud_processor".
+This command install a Python package **pointcloud_processor**.
 
 ### 2. Run the main command
 ```bash
