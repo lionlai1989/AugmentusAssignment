@@ -141,6 +141,26 @@ Four representative clustering results with visually good segmentations are show
 | **Bottom-Left** | 0.023 | 0.10 | 30 | (0.5, 0.0, 0.5) | 136 |
 | **Bottom-Right** | 0.023 | 0.10 | 30 | (0.333, 0.333, 0.333) | 237 |
 
+Out of curiosity, I would like to know what would happen if the same parameters being applied to a
+different dataset. Here is the result of `LivingRoomPointClouds` processed with the same parameters.
+
+<table>
+<tr>
+  <td align="center" width="50%">
+    <img src="./output_livingroom/uniform_down_sample_3_eps0.1_min30_Wxyz0.5lab0norm0.5_clusters55.png" width="80%"><br>
+    <em>Left</em>
+  </td>
+  <td align="center" width="50%">
+    <img src="./output_livingroom/uniform_down_sample_3_eps0.1_min30_Wxyz0.333lab0.333norm0.333_clusters97.png" width="80%"><br>
+    <em>Right</em>
+  </td>
+</tr>
+</table>
+
+| Image | every_k_points | epsilon | min_points | Weights (XYZ, Lab, Normal) | #Clusters |
+|:------|:--------------|:-------------|:------------|:----------------------------|:-----------:|
+| **Left** | 3 | 0.10 | 30 | (0.5, 0.0, 0.5) | 55 |
+| **Right** | 3 | 0.10 | 30 | (0.333, 0.333, 0.333) | 97 |
 
 ## Architecture
 
