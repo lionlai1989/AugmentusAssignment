@@ -30,7 +30,7 @@ interactive = ["jupyter", "ipykernel", "notebook", "jupyterlab"]
 "Homepage" = "https://github.com/lionlai1989/AugmentusAssignment"
 
 [project.scripts]
-process-eagle = "augmentus.pointcloudprocessor.process_eagle:main"
+process-pointcloud = "augmentus.pointcloudprocessor.process_pointcloud:main"
 
 ## mypy configuration
 [tool.mypy]

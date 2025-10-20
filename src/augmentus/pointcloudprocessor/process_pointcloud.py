@@ -1,6 +1,6 @@
 """
 This script does the following:
-1. Loads the eagle point cloud
+1. Loads the point cloud
 2. Downsamples the point cloud
 3. Estimates the normals
 4. Builds the feature vector
@@ -43,15 +43,29 @@ def build_feature_vector(pcd, weight):
     return np.hstack([xyz_scaled, lab_norm, nrm])
 
 
-def run(output_dir: Path):
-    # load eagle point cloud
-    epc = o3d.data.EaglePointCloud()  # open3d.cuda.pybind.data.EaglePointCloud
-    pcd = o3d.io.read_point_cloud(epc.path)  # open3d.cuda.pybind.geometry.PointCloud
-    print(f"Number of pcd points: {len(pcd.points)}")  # 796825
+def get_o3d_dataset(dataset_name: str):
+    try:
+        dataset_cls = getattr(o3d.data, dataset_name)
+    except AttributeError as err:
+        raise ValueError(f"Unknown dataset: {dataset_name}") from err
+    return dataset_cls()  # downloads if missing
+
+
+def run(output_dir: Path, dataset_name: str):
+    # load point cloud
+    ds = get_o3d_dataset(dataset_name)
+    pcd_path = getattr(ds, "path", None)
+    if pcd_path is None:
+        paths = getattr(ds, "paths", None)
+        pcd_path = paths[0] if paths else None
+    if pcd_path is None:
+        raise ValueError(f"Dataset {dataset_name} does not expose a usable path")
+    pcd = o3d.io.read_point_cloud(pcd_path)
+    print(f"Number of pcd points: {len(pcd.points)}")
     min_x, min_y, min_z = pcd.get_min_bound().tolist()
     max_x, max_y, max_z = pcd.get_max_bound().tolist()
     print(f"Point cloud extents: {min_x, min_y, min_z} to {max_x, max_y, max_z}")
-    render_point_cloud_as_image(pcd, output_path=output_dir / "original_eagle.png")
+    render_point_cloud_as_image(pcd, output_path=output_dir / "original.png")
 
     # uniform_down_sample. keeps the original density of the point cloud
     # voxel_down_sample. keeps the geometric structure of the point cloud
@@ -114,7 +128,7 @@ def run(output_dir: Path):
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Process the Eagle point cloud and export images.")
+    parser = argparse.ArgumentParser(description="Process the point cloud and export images.")
     parser.add_argument(
         "-o",
         "--output-dir",
@@ -122,12 +136,16 @@ def main() -> int:
         default=Path("output"),
         help="Directory to write output images (default: ./output)",
     )
-
+    parser.add_argument(
+        "--dataset-name",
+        type=str,
+        required=True,
+    )
     args = parser.parse_args()
     output_dir: Path = args.output_dir
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    run(output_dir)
+    run(output_dir, args.dataset_name)
     return 0
 
 
